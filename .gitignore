@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# 虚拟环境
+venv/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 数据文件（包含隐私数据）
+data/cookies.json
+data/*.xlsx
+data/*.csv
+data/*.json
+data/*.db
+data/*.log
+data/*.docx
+data/*.png
+data/charts/
+data/browser_profile/
+
+# 非代码产物（防止误提交可执行文件/宏文件，见 CLAUDE.md 安全提示）
+~$*
+*.xlsm
+
+# 下载的图片（太大了）
+images/
+
+# 临时文件
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
