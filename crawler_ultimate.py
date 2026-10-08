@@ -3928,7 +3928,10 @@ class CrawlerApp:
         评论图→打开第一张评论图。
         """
         if not self.preview_image_paths and hasattr(self, '_current_selected_note') and self._current_selected_note:
-            self._load_image_previews(self._current_selected_note)
+            try:
+                self._load_image_previews(self._current_selected_note)
+            except Exception:
+                self._load_batch_note_previews(self._current_selected_note)
         if self.preview_image_paths:
             # 当前页第一个"笔记图片"槽位的全局索引
             slots = self._build_preview_slots()
