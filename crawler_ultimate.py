@@ -3240,7 +3240,7 @@ class CrawlerApp:
                         self._reset_preview_state("点击右侧\"查看大图\"按钮查看图片")
                         self._current_selected_note = note
                         return
-                        return
+
 
 
             
