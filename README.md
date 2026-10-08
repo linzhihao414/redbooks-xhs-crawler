@@ -1,9 +1,25 @@
-# 小红书爬虫工具
+﻿# 小红书爬虫工具
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white) ![DrissionPage](https://img.shields.io/badge/DrissionPage-Chromium%20automation-2EAD33) ![CustomTkinter](https://img.shields.io/badge/UI-CustomTkinter-FF2442) ![License](https://img.shields.io/badge/License-MIT-green)
 
 
 一个功能完整的小红书笔记爬虫工具，支持关键词搜索、主页推荐、博主主页爬取，具有图形化界面。
+
+## 快速开始
+
+1. 安装 Python 3.8+（勾选 Add to PATH）
+2. 双击 un.bat（自动安装依赖并启动）
+3. 首次启动扫码登录小红书
+4. 输入关键词，点"开始爬取"
+
+## 功能
+
+- **国内/国际版切换**：勾选"国际版(rednote)"采集海外内容（需挂VPN），不勾选采集国内内容
+- **默认300条**：最多笔记默认300条，可自行修改
+- **自动检测Chrome**：无需手动配置浏览器路径
+- **关键词搜索 / 博主主页 / 热门榜单**三种模式
+- **图片视频下载**、Excel导出、SQLite数据库
+- **数据分析**：统计图表、词云、分析报告
 
 ## 界面预览
 
