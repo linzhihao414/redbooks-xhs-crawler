@@ -5912,7 +5912,7 @@ class CrawlerApp:
 
                         # 访问小红书并检查登录状态
                         page.get(self._base_url())
-                        time.sleep(2)
+                        time.sleep(5)
 
                         # 若存在已保存的 Cookie 且当前未登录，先尝试注入恢复会话
                         if not self._check_login(page) and self.cookie_mgr.exists():
