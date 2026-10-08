@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 小红书爬虫终极版 v5.0
 功能：视频下载、评论爬取、正文内容、标签提取、博主爬取、数据可视化、Cookie管理
@@ -5889,6 +5889,16 @@ class CrawlerApp:
                             os.makedirs(user_data_dir, exist_ok=True)
 
                             co = ChromiumOptions()
+                            import glob
+                            _chrome_paths = [
+                                r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                                r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+                                os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
+                            ]
+                            for _cp in _chrome_paths:
+                                if os.path.exists(_cp):
+                                    co.set_browser_path(_cp)
+                                    break
                             co.set_user_data_path(user_data_dir)
                             co.set_argument('--no-first-run')
                             co.set_argument('--no-default-browser-check')
