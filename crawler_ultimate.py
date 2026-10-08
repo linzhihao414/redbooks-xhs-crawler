@@ -5691,6 +5691,9 @@ class CrawlerApp:
         thread = threading.Thread(target=self._crawl_thread, daemon=True)
         thread.start()
     
+    def _base_url(self):
+        return 'https://www.rednote.com' if self.config.use_international else 'https://www.xiaohongshu.com'
+
     def _build_search_url(self, keyword: str) -> str:
         keyword_code = quote(quote(keyword.encode('utf-8')).encode('gb2312'))
         return f'{self._base_url()}/search_result?keyword={keyword_code}&source=web_search_result_notes'
