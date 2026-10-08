@@ -1593,6 +1593,9 @@ class CrawlerApp:
         self._label(self._count_row, "并行", padx=(0, SP_XS))
         self.parallel_var = tk.StringVar(value="10")
         self._num_entry(self._count_row, self.parallel_var, width=80, padx=(0, SP_LG))
+        self.intl_var = tk.BooleanVar(value=True)
+        ctk.CTkCheckBox(self._count_row, text="国际版(rednote)", variable=self.intl_var,
+                        fg_color="#FF2442", hover_color="#E01E37", width=120).pack(side="right", padx=(SP_MD, 0))
 
         self.crawl_mode_var = tk.StringVar(value="standard")
         self._CRAWL_MODE_LABELS = ("标准模式（完整数据）", "极速模式（仅列表）")
@@ -5597,6 +5600,7 @@ class CrawlerApp:
         self.config.keyword = self.keyword_var.get().strip()
         self.config.scroll_times = self._safe_int(self.scroll_var, 10)
         self.config.max_notes = self._safe_int(self.max_notes_var, 300)
+        self.config.use_international = self.intl_var.get()
         self.config.parallel_downloads = self._safe_int(self.parallel_var, 10)
         self.config.crawl_mode = self.crawl_mode_var.get()
         self.config.crawl_type = self.crawl_type_var.get()
