@@ -218,7 +218,7 @@ class CrawlerConfig:
     # 基础配置
     keyword: str = ""
     scroll_times: int = 10
-    max_notes: int = 30
+    max_notes: int = 300
     parallel_downloads: int = 10
     retry_times: int = 2
     save_interval: int = 10
@@ -1586,7 +1586,7 @@ class CrawlerApp:
         self._count_row = self._row(target, pady=(0, 0))
         self.scroll_var = tk.StringVar(value="10")
         self._label(self._count_row, "最多笔记", width=LABEL_W, padx=(0, SP_SM))
-        self.max_notes_var = tk.StringVar(value="30")
+        self.max_notes_var = tk.StringVar(value="300")
         self._num_entry(self._count_row, self.max_notes_var, width=80, padx=(0, SP_MD))
         self._label(self._count_row, "并行", padx=(0, SP_XS))
         self.parallel_var = tk.StringVar(value="10")
@@ -5594,7 +5594,7 @@ class CrawlerApp:
         """
         self.config.keyword = self.keyword_var.get().strip()
         self.config.scroll_times = self._safe_int(self.scroll_var, 10)
-        self.config.max_notes = self._safe_int(self.max_notes_var, 30)
+        self.config.max_notes = self._safe_int(self.max_notes_var, 300)
         self.config.parallel_downloads = self._safe_int(self.parallel_var, 10)
         self.config.crawl_mode = self.crawl_mode_var.get()
         self.config.crawl_type = self.crawl_type_var.get()
