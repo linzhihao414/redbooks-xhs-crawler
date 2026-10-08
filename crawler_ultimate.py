@@ -5900,6 +5900,7 @@ class CrawlerApp:
                                     co.set_browser_path(_cp)
                                     break
                             co.set_user_data_path(user_data_dir)
+                            co.auto_port(True)
                             co.set_argument('--no-first-run')
                             co.set_argument('--no-default-browser-check')
 
