@@ -3237,12 +3237,12 @@ class CrawlerApp:
 
                         self._render_detail(blocks)
 
-                        # 加载图片预览
-                        self._load_batch_note_previews(note)
-                        # 点击即弹出小红书式详情卡片
-                        self._open_note_card(note)
+                        self._reset_preview_state("点击右侧\"查看大图\"按钮查看图片")
+                        self._current_selected_note = note
                         return
-                return
+                        return
+
+
             
             elif batch_notes and not batch_folder:
                 # 全部批次视图（行位置直接对应 batch_notes 顺序）
@@ -3355,9 +3355,9 @@ class CrawlerApp:
                 self._render_detail(blocks)
 
                 # 加载图片/视频/评论图预览
-                self._load_image_previews(note)
-                # 点击即弹出小红书式详情卡片（左图右文+完整评论）
-                self._open_note_card(note)
+                # 不自动加载大图
+                self._reset_preview_state("点击右侧\"查看大图\"按钮查看图片")
+                self._current_selected_note = note
 
         except Exception as e:
             print(f"选择错误: {e}")
