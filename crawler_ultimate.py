@@ -253,6 +253,8 @@ class CrawlerConfig:
     export_format: str = "xlsx"
     export_to_db: bool = True
     db_path: str = "data/redbook.db"
+    # Use international version (rednote.com) for overseas content
+    use_international: bool = True
     
     # 速度控制（元组默认值需要用field）
     click_delay: Tuple[float, float] = field(default_factory=lambda: (0.2, 0.4))
@@ -5685,16 +5687,9 @@ class CrawlerApp:
         thread = threading.Thread(target=self._crawl_thread, daemon=True)
         thread.start()
     
-    @staticmethod
-    def _build_search_url(keyword: str) -> str:
-        """构造搜索页 URL。
-
-        注意：这里是历史遗留的双重百分号编码（quote 两次，gb2312 一步对
-        纯 ASCII 实为空操作）。线上搜索对此编码可正常返回结果，
-        未经实测前请勿"顺手修正"为单次编码。
-        """
+    def _build_search_url(self, keyword: str) -> str:
         keyword_code = quote(quote(keyword.encode('utf-8')).encode('gb2312'))
-        return f'https://www.xiaohongshu.com/search_result?keyword={keyword_code}&source=web_search_result_notes'
+        return f'{self._base_url()}/search_result?keyword={keyword_code}&source=web_search_result_notes'
 
     @staticmethod
     def _is_note_detail_url(url: str) -> bool:
@@ -5856,7 +5851,7 @@ class CrawlerApp:
                         page = self.browser_page
                         self.log("复用已打开的浏览器", "INFO")
                         try:
-                            page.get('https://www.xiaohongshu.com')
+                            page.get(self._base_url())
                             time.sleep(1.5)
                         except Exception as e:
                             self.log(f"浏览器实例已失效，重新启动 ({e})", "WARNING")
@@ -5912,14 +5907,14 @@ class CrawlerApp:
                             return
 
                         # 访问小红书并检查登录状态
-                        page.get('https://www.xiaohongshu.com')
+                        page.get(self._base_url())
                         time.sleep(2)
 
                         # 若存在已保存的 Cookie 且当前未登录，先尝试注入恢复会话
                         if not self._check_login(page) and self.cookie_mgr.exists():
                             self.log("尝试使用已保存的 Cookie 恢复登录...", "INFO")
                             if self.cookie_mgr.load(page):
-                                page.get('https://www.xiaohongshu.com')
+                                page.get(self._base_url())
                                 time.sleep(1.5)
 
                         risk = self._check_risk_page(page)
@@ -5954,7 +5949,7 @@ class CrawlerApp:
                         self._update_ui(status="爬取博主主页")
                     elif crawl_type == "hot":
                         # 热门榜单 = 主页推荐流，忽略关键词框内容
-                        target_url = 'https://www.xiaohongshu.com/explore'
+                        target_url = self._base_url() + '/explore'
                         self.log(f"访问主页推荐...", "INFO")
                         self._update_ui(status="爬取主页")
                     elif keyword:
@@ -5962,7 +5957,7 @@ class CrawlerApp:
                         self.log(f"访问搜索页面...", "INFO")
                         self._update_ui(status=f"搜索: {keyword}")
                     else:
-                        target_url = 'https://www.xiaohongshu.com/explore'
+                        target_url = self._base_url() + '/explore'
                         self.log(f"访问主页推荐...", "INFO")
                         self._update_ui(status="爬取主页")
                     
@@ -6429,7 +6424,7 @@ class CrawlerApp:
             if keyword:
                 base_url = self._build_search_url(keyword)
             else:
-                base_url = 'https://www.xiaohongshu.com/explore'
+                base_url = self._base_url() + '/explore'
         
         # 按顺序爬取（每次从头遍历找未爬取的笔记，更稳定）
         target_notes = self.config.max_notes
