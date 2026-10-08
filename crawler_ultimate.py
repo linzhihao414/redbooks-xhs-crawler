@@ -254,7 +254,7 @@ class CrawlerConfig:
     export_to_db: bool = True
     db_path: str = "data/redbook.db"
     # Use international version (rednote.com) for overseas content
-    use_international: bool = True
+    use_international: bool = False
     
     # 速度控制（元组默认值需要用field）
     click_delay: Tuple[float, float] = field(default_factory=lambda: (0.2, 0.4))
@@ -1593,7 +1593,7 @@ class CrawlerApp:
         self._label(self._count_row, "并行", padx=(0, SP_XS))
         self.parallel_var = tk.StringVar(value="10")
         self._num_entry(self._count_row, self.parallel_var, width=80, padx=(0, SP_LG))
-        self.intl_var = tk.BooleanVar(value=True)
+        self.intl_var = tk.BooleanVar(value=False)
         ctk.CTkCheckBox(self._count_row, text="国际版(rednote)", variable=self.intl_var,
                         fg_color="#FF2442", hover_color="#E01E37", width=120).pack(side="right", padx=(SP_MD, 0))
 
